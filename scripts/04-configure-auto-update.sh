@@ -12,6 +12,8 @@ error() {
 
 trap 'error "Failed at line $LINENO while running: $BASH_COMMAND"' ERR
 
+source .env
+
 CONFIG_FILE="./config/configuration.txt"
 STATE_FILE="./config/state.txt"
 
