@@ -22,7 +22,7 @@ rm -f "$STATE_FILE"
 log "Ensuring config directory exists"
 mkdir -p ./config
 log "Generating replication config template via osmosis"
-osmosis --rrii workingDirectory="./config"
+$OSMOSIS_BIN --rrii workingDirectory="./config"
 
 # # This points daily updates to Małopolskie instead of the whole planet
 if [ -f "$CONFIG_FILE" ]; then

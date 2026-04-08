@@ -17,7 +17,7 @@ source .env
 
 log "Applying replication changes to PostgreSQL"
 # NOTE: password should be moved to ~/.pgpass for security reasons, but for simplicity we use env vars here
-osmosis --read-replication-interval workingDirectory="./config" \
+$OSMOSIS_BIN --read-replication-interval workingDirectory="./config" \
         --simplify-change \
         --write-pgsql-change host="$DB_HOST" \
         database="$DB_NAME" \

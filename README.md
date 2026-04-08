@@ -24,6 +24,9 @@ The script requires **root access** to the database in order to use the extensio
 sudo apt install postgresql osmosis postgresql-16-postgis-3 postgresql-contrib
 ```
 
+Please fill in the Osmosis paths in the `.env` file (see `.env.example`).
+The default values should work on Debian-based systems with Osmosis installed from the package manager.
+
 ## Usage
 
 ### First Run

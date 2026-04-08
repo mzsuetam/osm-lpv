@@ -25,7 +25,7 @@ log "Using Java RAM limit: $RAM_JAVA_LIMIT"
 log "This step can take several minutes"
 
 # NOTE: password should be moved to ~/.pgpass for security reasons, but for simplicity we use env vars here
-osmosis --read-pbf file="./data/malopolskie-latest.osm.pbf" \
+$OSMOSIS_BIN --read-pbf file="./data/malopolskie-latest.osm.pbf" \
         --write-pgsql host="$DB_HOST" \
         database="$DB_NAME" \
         user="$DB_USER" \
