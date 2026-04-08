@@ -11,14 +11,17 @@ OSM LPV is a Python script designed to automate the process of downloading, proc
 The script asserts the existence of the database and its user.
 Please fill in the credentials in the `.env` file (see `.env.example`).
 
+The script requires **root access** to the database in order to use the extensions.
+
 ### Technical
 
 - postgresql
-- postgis
+  - postgis
+  - hstore
 - osmosis
 
 ```bash
-sudo apt install postgresql osmosis postgresql-16-postgis-3
+sudo apt install postgresql osmosis postgresql-16-postgis-3 postgresql-contrib
 ```
 
 ## Usage
