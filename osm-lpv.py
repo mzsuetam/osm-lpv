@@ -25,7 +25,9 @@ def setup_logging() -> None:
 
 logger = logging.getLogger(__name__)
 
-SCRIPT_DIR = Path('.') / "scripts"
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+SCRIPT_DIR = PROJECT_ROOT / "scripts"
 
 
 def parse_args():
@@ -75,7 +77,7 @@ def manage_cron(action):
     script_path = os.path.abspath(__file__)
 
     # Define the command to run every night at 4 AM
-    job_command = f"mkdir -p {os.getcwd()}/logs && {python_executable} {script_path} update >> {os.getcwd()}/logs/cron-`date +%y%m%d`.log 2>&1"
+    job_command = f"mkdir -p {PROJECT_ROOT}/logs && {python_executable} {script_path} update >> {PROJECT_ROOT}/logs/cron-`date +%y%m%d`.log 2>&1"
 
     # Access the crontab for the current user
     cron = CronTab(user=True)
@@ -151,6 +153,9 @@ def prune_logic():
 if __name__ == "__main__":
     setup_logging()
     args = parse_args()
+
+    # update workdir to project root to ensure scripts run in correct context
+    os.chdir(PROJECT_ROOT)
 
     if args.command == "init":
         init_logic()
