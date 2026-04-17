@@ -30,7 +30,7 @@ $OSMOSIS_BIN --rrii workingDirectory="./config"
 if [ -f "$CONFIG_FILE" ]; then
     log "Patching replication source and interval in $CONFIG_FILE"
     sed -i 's|baseUrl=.*|baseUrl=http://download.geofabrik.de/europe/poland/malopolskie-updates|' "$CONFIG_FILE"
-    sed -i 's|maxInterval =.*|maxInterval = 0|' "$CONFIG_FILE"
+    sed -i 's|maxInterval =.*|maxInterval = 3600|' "$CONFIG_FILE"
     log "Successfully patched $CONFIG_FILE for Małopolskie updates"
 else
     error "Expected configuration file not found: $CONFIG_FILE"

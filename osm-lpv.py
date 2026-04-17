@@ -135,9 +135,32 @@ def init_logic():
     logger.info("Init flow completed successfully")
 
 
+def _read_state_timestamp():
+    state_file = PROJECT_ROOT / 'config' / 'state.txt'
+    if not state_file.exists():
+        logger.warning("State file not found: %s", state_file)
+        return None
+    with open(state_file, 'r') as f:
+        for line in f:
+            if line.startswith("timestamp="):
+                timestamp = line.split("=", 1)[1].strip()
+                return timestamp
+    logger.warning("Timestamp not found in state file: %s", state_file)
+    return None
+
+
 def update_logic():
     logger.info("Running daily update and vacuum...")
-    _run_script("05-update.sh")
+    timestamp = _read_state_timestamp()
+    while timestamp:
+        # there is some bug with bulk change loading, 
+        # so we iterate over updates with small granulation 
+        # (set in config/configuration.txt) until no new data is available
+        _run_script("05-update.sh")
+        new_timestamp = _read_state_timestamp()
+        if new_timestamp == timestamp:
+            logger.info("No new data available, stopping update loop")
+            break
     logger.info("Update flow completed successfully")
     logger.info("Removing old log files...")
     _run_script("07-clean-logs.sh")
